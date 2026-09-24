@@ -16,12 +16,11 @@ export default defineConfigWithVueTs(
     files: ['**/*.{vue,ts,mts,tsx}'],
   },
 
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**', 'prototype/**']),
+  globalIgnores(['**/dist/**', '**/coverage/**', 'prototype/**']),
 
   ...pluginVue.configs['flat/recommended'],
   vueTsConfigs.recommendedTypeChecked,
 
-  // Static analysis: bug patterns, code smells and cognitive complexity.
   sonarRecommended,
 
   {

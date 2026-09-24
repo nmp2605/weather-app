@@ -80,7 +80,6 @@ function onFocusOut(event: FocusEvent) {
 <template>
   <div class="relative w-full md:max-w-md" @focusout="onFocusOut">
     <label :for="`${baseId}-input`" class="sr-only">Buscar cidade</label>
-    <!-- M3 search bar -->
     <div
       class="flex h-14 items-center gap-1 rounded-full bg-surface-high pr-1 pl-4 transition-shadow focus-within:shadow-elevation-2"
     >
@@ -133,7 +132,6 @@ function onFocusOut(event: FocusEvent) {
       </button>
     </div>
 
-    <!-- M3 search view results -->
     <div
       v-show="showPanel"
       class="absolute inset-x-0 top-[calc(100%+4px)] z-40 overflow-hidden rounded-[28px] bg-surface-high py-2 shadow-elevation-3"

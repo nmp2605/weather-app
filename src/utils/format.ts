@@ -2,7 +2,6 @@ const LOCALE = 'pt-BR'
 
 const regionNames = new Intl.DisplayNames([LOCALE], { type: 'region' })
 
-/** Rounded Celsius value with a degree sign, e.g. "23°". */
 export function formatTemperature(celsius: number): string {
   // `|| 0` turns -0 (from values like -0.4) into 0.
   return `${Math.round(celsius) || 0}°`

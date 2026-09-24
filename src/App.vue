@@ -76,7 +76,6 @@ async function onLocate() {
   }
 }
 
-// A failed background refresh keeps the last reading on screen and says so.
 watch(error, (value) => {
   if (value && status.value === 'success') notice.value = MESSAGES.refreshFailed
 })

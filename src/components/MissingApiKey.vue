@@ -2,8 +2,6 @@
 import { KeyIcon } from '@heroicons/vue/24/outline'
 
 import { OPENWEATHER_SIGN_UP_URL } from '@/config/constants'
-
-// Styled as an M3 basic dialog, rendered inline.
 </script>
 
 <template>
@@ -18,12 +16,12 @@ import { OPENWEATHER_SIGN_UP_URL } from '@/config/constants'
     <p class="mt-3 text-sm text-on-surface-variant">
       O painel precisa de uma chave de API para buscar os dados. Crie uma conta gratuita, copie a
       chave e adicione-a ao arquivo
-      <code class="rounded bg-surface-highest px-1 font-mono">.env.local</code> na raiz do projeto.
+      <code class="rounded bg-surface-highest px-1 font-mono">.env</code> na raiz do projeto.
       Depois, reinicie o servidor de desenvolvimento.
     </p>
     <pre
       class="mt-4 overflow-x-auto rounded-2xl bg-surface-container p-4 font-mono text-sm leading-relaxed"
-    ><span class="text-on-surface-variant"># .env.local</span>
+    ><span class="text-on-surface-variant"># .env</span>
 <span class="text-primary">VITE_OPENWEATHER_API_KEY</span>=sua_chave_aqui</pre>
     <div class="mt-6 flex justify-end">
       <a

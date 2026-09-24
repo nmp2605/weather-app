@@ -1,5 +1,3 @@
-/** Raw response shapes of the OpenWeatherMap endpoints used by the app. */
-
 export interface OwmCondition {
   id: number
   main: string

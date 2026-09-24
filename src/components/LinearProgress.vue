@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// M3 indeterminate linear progress indicator.
 defineProps<{ label: string }>()
 </script>
 

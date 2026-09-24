@@ -46,8 +46,8 @@ nvm use
 
 ```bash
 npm ci
-cp .env.example .env.local
-# edit .env.local and paste your key (see below)
+cp .env.example .env
+# edit .env and paste your key (see below)
 npm run dev
 ```
 
@@ -58,7 +58,7 @@ Open <http://localhost:5173>. Without a key the app shows a setup screen instead
 1. Create a free account at <https://home.openweathermap.org/users/sign_up>.
 2. Copy a key from <https://home.openweathermap.org/api_keys>. New keys can take up to a couple of
    hours to activate; until then the API answers `401` and the app shows "Chave de API inválida".
-3. Put it in `.env.local` at the project root (this file is git-ignored):
+3. Put it in `.env` at the project root (git-ignored, like every `.env.*` file except `.env.example`):
 
    ```dotenv
    VITE_OPENWEATHER_API_KEY=your_key_here
@@ -185,7 +185,7 @@ The location button in the search bar switches back to the browser location at a
 
 | Symptom                                      | Fix                                                                                                                                                 |
 | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "Configure a chave da OpenWeatherMap" screen | Add `VITE_OPENWEATHER_API_KEY` to `.env.local` and restart the dev server.                                                                          |
+| "Configure a chave da OpenWeatherMap" screen | Add `VITE_OPENWEATHER_API_KEY` to `.env` and restart the dev server.                                                                                |
 | "Chave de API inválida"                      | Check the key; new keys can take a couple of hours to activate.                                                                                     |
 | "Limite de requisições atingido"             | The free plan allows 60 calls/minute and 1,000,000/month; wait a moment.                                                                            |
 | Location never used                          | Allow location for the site in the browser, and serve over HTTPS outside `localhost`.                                                               |

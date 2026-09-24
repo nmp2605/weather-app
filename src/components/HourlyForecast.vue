@@ -54,7 +54,6 @@ function label(point: HourlyPoint, index: number) {
   return index === 0 ? 'Agora' : formatHourLabel(point.time, props.timezoneOffset)
 }
 
-/** The highlighted "now" tile inherits its color; other tiles emphasize any rain chance. */
 function chanceClass(point: HourlyPoint, index: number) {
   if (index === 0) return ''
   return point.precipitationChance > 0 ? 'text-primary' : 'text-on-surface-variant'

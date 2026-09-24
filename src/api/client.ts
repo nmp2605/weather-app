@@ -4,7 +4,6 @@ import { getApiKey } from '@/config/env'
 
 export const OPENWEATHER_BASE_URL = 'https://api.openweathermap.org'
 
-/** Axios instance shared by every OpenWeatherMap call. */
 export const http = axios.create({
   baseURL: OPENWEATHER_BASE_URL,
   timeout: 10_000,

@@ -86,7 +86,6 @@ const updatedAt = computed(() => formatClock(props.current.observedAt, props.tim
       />
     </div>
 
-    <!-- M3 assist chips -->
     <ul class="mt-6 flex flex-wrap gap-2 text-sm font-medium">
       <li
         v-if="isCurrentLocation"

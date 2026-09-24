@@ -8,7 +8,6 @@ import { dewPoint, formatNumber, formatTemperature, windDirection } from '@/util
 
 const props = defineProps<{ current: CurrentWeather }>()
 
-// Layout — md: humidity 2×2 plus four tiles; lg: two-column stack beside the current card.
 const RING_CIRCUMFERENCE = 2 * Math.PI * 42
 
 const humidityDash = computed(
@@ -43,7 +42,6 @@ const visibility = computed(() =>
         </p>
         <p class="mt-2 text-sm text-on-surface-variant">Ponto de orvalho {{ dew }}</p>
       </div>
-      <!-- M3 determinate circular progress indicator -->
       <svg viewBox="0 0 100 100" class="size-20 shrink-0 -rotate-90 sm:size-24" aria-hidden="true">
         <circle
           cx="50"
@@ -114,7 +112,6 @@ const visibility = computed(() =>
       <p class="tabular mt-3 text-2xl">
         {{ current.cloudiness }}<span class="text-base text-on-surface-variant">%</span>
       </p>
-      <!-- M3 determinate linear progress indicator -->
       <div
         class="mt-2 flex h-1 gap-1"
         role="progressbar"
