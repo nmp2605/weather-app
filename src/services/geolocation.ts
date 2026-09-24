@@ -13,7 +13,6 @@ export class GeolocationError extends Error {
   }
 }
 
-/** GeolocationPositionError codes: 1 = PERMISSION_DENIED, 2 = POSITION_UNAVAILABLE, 3 = TIMEOUT. */
 const KIND_BY_CODE: Readonly<Record<number, GeolocationErrorKind>> = {
   1: 'denied',
   2: 'unavailable',
@@ -26,7 +25,6 @@ export function isGeolocationSupported(): boolean {
   return typeof navigator !== 'undefined' && 'geolocation' in navigator
 }
 
-/** Reads the permission without prompting the user. */
 export async function getPermissionState(): Promise<GeolocationPermission> {
   if (typeof navigator === 'undefined' || !('permissions' in navigator)) return 'unsupported'
   try {
@@ -37,11 +35,6 @@ export async function getPermissionState(): Promise<GeolocationPermission> {
   }
 }
 
-/**
- * Resolves the browser position with low accuracy (fast, enough for weather).
- * The browser's own `timeout` only starts after the user answers the permission
- * prompt, so an outer timer also bounds the time spent waiting on the prompt.
- */
 export function getCurrentPosition(timeoutMs = GEOLOCATION_TIMEOUT_MS): Promise<Coordinates> {
   return new Promise((resolve, reject) => {
     if (!isGeolocationSupported()) {

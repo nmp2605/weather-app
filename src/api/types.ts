@@ -16,14 +16,11 @@ export interface OwmCurrentResponse {
     pressure: number
     humidity: number
   }
-  /** Meters, capped at 10 000 by the API. Missing for some stations. */
   visibility?: number
-  /** Speed in m/s with `units=metric`; direction in meteorological degrees. */
   wind: { speed: number; deg: number; gust?: number }
   clouds: { all: number }
   dt: number
   sys: { country?: string; sunrise: number; sunset: number }
-  /** Shift in seconds from UTC. */
   timezone: number
   name: string
 }
@@ -38,7 +35,6 @@ export interface OwmForecastItem {
     humidity: number
   }
   weather: OwmCondition[]
-  /** Probability of precipitation, 0–1. */
   pop: number
 }
 

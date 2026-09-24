@@ -16,15 +16,12 @@ import { capitalize } from '@/utils/format'
 const props = withDefaults(
   defineProps<{
     condition: Condition
-    /** Hide from assistive tech when the description is already shown as text. */
     decorative?: boolean
-    /** Apply the condition's color role; disable to color it from the parent. */
     toned?: boolean
   }>(),
   { decorative: false, toned: true },
 )
 
-// Heroicons has no rain, snow or fog glyphs; these are the closest metaphors.
 const ICONS: Readonly<Record<ConditionKind, Component>> = {
   clear: SunIcon,
   'few-clouds': SunIcon,
@@ -47,8 +44,6 @@ const TONES: Readonly<Record<ConditionKind, string>> = {
   mist: 'text-secondary',
 }
 
-// Heroicons are functional components, which only inherit class, style and listeners,
-// so the accessible name lives on a wrapping <span>.
 const FALLBACK_LABELS: Readonly<Record<ConditionKind, string>> = {
   clear: 'Céu limpo',
   'few-clouds': 'Poucas nuvens',

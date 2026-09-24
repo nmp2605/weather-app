@@ -66,7 +66,7 @@ describe('findCities', () => {
   it('maps results and removes duplicates', async () => {
     vi.mocked(api.searchCities).mockResolvedValue([
       makeGeo(),
-      makeGeo({ lat: -27.59, lon: -48.54 }), // same city, another point
+      makeGeo({ lat: -27.59, lon: -48.54 }),
       makeGeo({ name: 'Floriano', local_names: undefined, state: 'Piauí' }),
     ])
 

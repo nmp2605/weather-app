@@ -19,7 +19,6 @@ const props = defineProps<{
   current: CurrentWeather
   today?: DailySummary
   timezoneOffset: number
-  /** Unix seconds. */
   now: number
   isCurrentLocation: boolean
   refreshing: boolean

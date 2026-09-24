@@ -9,7 +9,6 @@ import { formatHourLabel } from '@/utils/time'
 
 const props = defineProps<{ points: HourlyPoint[]; timezoneOffset: number }>()
 
-// Chart geometry (SVG viewBox 0 0 800 160): temperatures span y = 130 (min) to 30 (max).
 const WIDTH = 800
 const HEIGHT = 160
 const BASELINE = 130
@@ -24,6 +23,7 @@ const chart = computed(() => {
   const coords = props.points.map((point, index) => ({
     x: step * (index + 0.5),
     y: BASELINE - ((point.temperature - min) / span) * AMPLITUDE,
+    label: formatTemperature(point.temperature),
   }))
   const line = coords
     .map(({ x, y }, index) => `${index === 0 ? 'M' : 'L'}${x.toFixed(1)} ${y.toFixed(1)}`)
@@ -38,10 +38,9 @@ const chart = computed(() => {
   return {
     line,
     area,
-    // Percentages keep HTML labels aligned with the stretched (non-uniform) SVG.
-    markers: coords.map(({ x, y }) => ({
-      left: `${(x / WIDTH) * 100}%`,
-      top: `${(y / HEIGHT) * 100}%`,
+    markers: coords.map(({ x, y, label }) => ({
+      label,
+      style: { left: `${(x / WIDTH) * 100}%`, top: `${(y / HEIGHT) * 100}%` },
     })),
   }
 })
@@ -75,7 +74,6 @@ function chanceClass(point: HourlyPoint, index: number) {
       </span>
     </div>
 
-    <!-- Below 640px the chart scrolls sideways so every column stays legible. -->
     <div class="-mx-5 mt-4 overflow-x-auto px-5 pb-1 sm:mx-0 sm:px-0">
       <div class="min-w-[600px]">
         <div class="relative mt-6 h-24" aria-hidden="true">
@@ -103,12 +101,12 @@ function chanceClass(point: HourlyPoint, index: number) {
           </svg>
           <div class="tabular absolute inset-0 text-sm font-medium">
             <template v-for="(marker, index) in chart.markers" :key="index">
-              <span class="absolute -translate-x-1/2 -translate-y-[170%]" :style="marker">
-                {{ formatTemperature(points[index]?.temperature ?? 0) }}
+              <span class="absolute -translate-x-1/2 -translate-y-[170%]" :style="marker.style">
+                {{ marker.label }}
               </span>
               <span
                 class="absolute box-content size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-surface-low bg-primary"
-                :style="marker"
+                :style="marker.style"
               ></span>
             </template>
           </div>

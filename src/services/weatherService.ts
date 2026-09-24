@@ -4,7 +4,6 @@ import { SEARCH_RESULT_LIMIT } from '@/config/constants'
 import { buildReport, toLocation } from '@/domain/mappers'
 import type { Coordinates, Location, LocationRequest, WeatherReport } from '@/domain/types'
 
-/** Place name for coordinates; a failed lookup falls back to the weather station's name. */
 async function describePlace(coords: Coordinates, signal?: AbortSignal) {
   try {
     const result = await reverseGeocode(coords, signal)
@@ -36,7 +35,6 @@ export async function getWeatherReport(
   return buildReport(place ?? fallbackLocation(coords, current), current, forecast)
 }
 
-/** City suggestions with duplicates (same name, state and country) removed. */
 export async function findCities(query: string, signal?: AbortSignal): Promise<Location[]> {
   const results = await searchCities(query, SEARCH_RESULT_LIMIT, signal)
   const seen = new Set<string>()

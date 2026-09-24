@@ -18,7 +18,6 @@ export class WeatherApiError extends Error {
   }
 }
 
-/** True for requests aborted on purpose (a newer search or location replaced them). */
 export function isAbortError(error: unknown): boolean {
   return isCancel(error) || (error instanceof DOMException && error.name === 'AbortError')
 }

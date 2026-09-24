@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300..800&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style>
-    /* Material 3 color roles — light scheme (seed #36618E) */
     :root {
       --md-primary: #36618e; --md-on-primary: #ffffff;
       --md-primary-container: #d1e4ff; --md-on-primary-container: #001d36;
@@ -25,7 +24,6 @@
       --md-inverse-surface: #2e3135; --md-inverse-on-surface: #eff0f7;
       color-scheme: light;
     }
-    /* Material 3 color roles — dark scheme */
     @media (prefers-color-scheme: dark) {
       :root {
         --md-primary: #a0cafd; --md-on-primary: #003258;
@@ -92,7 +90,6 @@
     }
     @layer components {
       .tabular { font-variant-numeric: tabular-nums; }
-      /* M3 state layer: overlay with the content color at 8% / 12% */
       .state-layer { position: relative; isolation: isolate; }
       .state-layer::after {
         content: ""; position: absolute; inset: 0; border-radius: inherit;
@@ -108,7 +105,6 @@
 </head>
 <body class="min-h-screen">
 
-  <!-- Heroicons v2.2 sprite (MIT) — o-* = outline 24, s-* = solid 24 -->
   <svg class="hidden" aria-hidden="true">
     <symbol id="o-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"/></symbol>
     <symbol id="o-arrow-path" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></symbol>
@@ -140,7 +136,6 @@
     <symbol id="s-sun" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z"/></symbol>
   </svg>
 
-  <!-- PROTOTYPE ONLY: state switcher (removed in the Vue app) -->
   <div class="fixed bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-0.5 whitespace-nowrap rounded-full bg-inverse-surface p-1 text-xs font-medium text-inverse-on-surface shadow-elevation-3">
     <span class="hidden px-3 opacity-70 sm:inline">Estado</span>
     <button data-state="data" class="state-btn state-layer rounded-full bg-primary-container px-3 py-2 text-on-primary-container">Dados</button>
@@ -149,7 +144,6 @@
     <button data-state="nokey" class="state-btn state-layer rounded-full px-3 py-2">Sem chave</button>
   </div>
 
-  <!-- ============ TOP APP BAR ============ -->
   <header class="sticky top-0 z-30 bg-surface/95 backdrop-blur">
     <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-6 lg:px-8">
       <div class="flex items-center gap-3">
@@ -192,7 +186,6 @@
 
   <div class="mx-auto max-w-7xl px-4 pb-28 sm:px-6 lg:px-8">
 
-    <!-- ============ STATE: DATA ============ -->
     <main id="state-data" class="mt-2 grid grid-cols-1 gap-4 lg:grid-cols-12 lg:gap-6">
 
       <section aria-labelledby="now-title" class="relative overflow-hidden rounded-[28px] bg-primary-container p-5 text-on-primary-container sm:p-8 lg:col-span-8 animate-enter">
@@ -382,7 +375,6 @@
       </section>
     </main>
 
-    <!-- ============ STATE: LOADING ============ -->
     <main id="state-loading" class="mt-2 hidden" aria-busy="true" aria-live="polite">
       <span class="sr-only">Carregando dados do tempo…</span>
       <div class="mb-4 h-1 overflow-hidden rounded-full bg-secondary-container">
@@ -401,7 +393,6 @@
       </div>
     </main>
 
-    <!-- ============ STATE: ERROR ============ -->
     <main id="state-error" class="mt-2 hidden">
       <section role="alert" class="flex flex-col items-start gap-4 rounded-[28px] bg-error-container p-6 text-on-error-container sm:flex-row sm:p-8">
         <span class="grid size-14 shrink-0 place-items-center rounded-full bg-error text-on-error">
@@ -418,7 +409,6 @@
       </section>
     </main>
 
-    <!-- ============ STATE: MISSING API KEY ============ -->
     <main id="state-nokey" class="mt-2 hidden">
       <section class="mx-auto mt-6 max-w-xl rounded-[28px] bg-surface-high p-6 shadow-elevation-3 sm:mt-10 sm:p-8">
         <svg class="size-6 text-secondary" aria-hidden="true"><use href="#o-key"/></svg>
@@ -440,7 +430,6 @@
   </div>
 
   <script>
-    // Prototype-only interactions
     const input = document.getElementById('city');
     const list = document.getElementById('suggestions');
     input.addEventListener('focus', () => list.classList.remove('hidden'));

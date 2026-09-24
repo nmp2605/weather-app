@@ -9,7 +9,6 @@ const props = withDefaults(defineProps<{ message: string | null; duration?: numb
 })
 const emit = defineEmits<{ dismiss: [] }>()
 
-// The live region below stays mounted so screen readers announce new messages.
 let timer: ReturnType<typeof setTimeout> | undefined
 
 watch(

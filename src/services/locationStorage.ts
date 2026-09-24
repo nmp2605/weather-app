@@ -2,7 +2,6 @@ import { LAST_LOCATION_STORAGE_KEY } from '@/config/constants'
 import type { Location } from '@/domain/types'
 
 function storage(): Storage | undefined {
-  // Access itself can throw (privacy mode, blocked site data).
   try {
     return window.localStorage
   } catch {
@@ -10,16 +9,26 @@ function storage(): Storage | undefined {
   }
 }
 
-function isLocation(value: unknown): value is Location {
-  if (typeof value !== 'object' || value === null) return false
-  const candidate = value as Record<string, unknown>
+type Candidate = Record<string, unknown>
+
+function isRecord(value: unknown): value is Candidate {
+  return typeof value === 'object' && value !== null
+}
+
+function hasNames({ name, country, state }: Candidate): boolean {
   return (
-    typeof candidate.name === 'string' &&
-    typeof candidate.country === 'string' &&
-    Number.isFinite(candidate.lat) &&
-    Number.isFinite(candidate.lon) &&
-    (candidate.state === undefined || typeof candidate.state === 'string')
+    typeof name === 'string' &&
+    typeof country === 'string' &&
+    ['undefined', 'string'].includes(typeof state)
   )
+}
+
+function hasCoordinates({ lat, lon }: Candidate): boolean {
+  return Number.isFinite(lat) && Number.isFinite(lon)
+}
+
+function isLocation(value: unknown): value is Location {
+  return isRecord(value) && hasNames(value) && hasCoordinates(value)
 }
 
 export function loadSavedLocation(): Location | null {
@@ -33,10 +42,13 @@ export function loadSavedLocation(): Location | null {
   }
 }
 
-export function saveLocation(location: Location): void {
+export function saveLocation(location: Location): boolean {
+  const target = storage()
+  if (!target) return false
   try {
-    storage()?.setItem(LAST_LOCATION_STORAGE_KEY, JSON.stringify(location))
+    target.setItem(LAST_LOCATION_STORAGE_KEY, JSON.stringify(location))
+    return true
   } catch {
-    // Storage full or blocked: remembering the city is a convenience, not a requirement.
+    return false
   }
 }

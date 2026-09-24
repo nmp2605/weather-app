@@ -6,7 +6,6 @@ export interface Coordinates {
 export interface Location extends Coordinates {
   name: string
   state?: string
-  /** ISO 3166-1 alpha-2 code, e.g. "BR". Empty when the API does not report it. */
   country: string
 }
 
@@ -15,7 +14,6 @@ export type ConditionKind =
 
 export interface Condition {
   kind: ConditionKind
-  /** Localized description from the API, e.g. "nublado". */
   description: string
   isNight: boolean
 }
@@ -30,25 +28,20 @@ export interface CurrentWeather {
   windDeg: number
   cloudiness: number
   condition: Condition
-  /** Unix seconds. */
   observedAt: number
   sunrise: number
   sunset: number
 }
 
 export interface HourlyPoint {
-  /** Unix seconds. */
   time: number
   temperature: number
   condition: Condition
-  /** 0–1. */
   precipitationChance: number
 }
 
 export interface DailySummary {
-  /** Local calendar date (YYYY-MM-DD) in the city's time zone. */
   date: string
-  /** Unix seconds of the reading used for the day's condition. */
   time: number
   min: number
   max: number
@@ -58,14 +51,12 @@ export interface DailySummary {
 
 export interface WeatherReport {
   location: Location
-  /** City offset from UTC in seconds. */
   timezoneOffset: number
   current: CurrentWeather
   hourly: HourlyPoint[]
   daily: DailySummary[]
 }
 
-/** What the app asks weather for: coordinates, plus the place when it is already known. */
 export interface LocationRequest {
   coords: Coordinates
   location?: Location

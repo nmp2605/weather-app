@@ -1,10 +1,5 @@
 @import 'tailwindcss';
 
-/*
- * Material Design 3 color roles (seed #36618E).
- * Raw values live in --md-* custom properties so the dark scheme can swap them,
- * and Tailwind exposes them as semantic utilities (bg-primary-container, text-on-surface…).
- */
 :root {
   --md-primary: #36618e;
   --md-on-primary: #ffffff;
@@ -128,8 +123,6 @@
   }
 }
 
-/* Cards lift and gain one elevation level on hover. `translate` is animated instead of
-   `transform`, which the entrance animation keeps set after it finishes. */
 @utility card-hover {
   transition-property: translate, box-shadow;
   transition-duration: 250ms;
@@ -165,7 +158,6 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* M3 state layer: overlay in the content color at 8% (hover) / 12% (focus, pressed). */
   .state-layer {
     position: relative;
     isolation: isolate;

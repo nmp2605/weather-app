@@ -13,7 +13,7 @@ import { OBSERVED_AT, SAO_PAULO_OFFSET } from '@/__tests__/fixtures/owm'
 describe('city-local time helpers', () => {
   it('formats the wall clock of the city, not of the viewer', () => {
     expect(formatClock(OBSERVED_AT, SAO_PAULO_OFFSET)).toBe('15:12')
-    expect(formatClock(OBSERVED_AT, 9 * 3600)).toBe('03:12') // Tokyo, next day
+    expect(formatClock(OBSERVED_AT, 9 * 3600)).toBe('03:12')
   })
 
   it('derives the local hour and date', () => {

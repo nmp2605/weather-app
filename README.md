@@ -53,7 +53,7 @@ cp .env.example .env
 | `npm run lint:fix`      | Fix lint and formatting issues                      |
 | `npm run format`        | Format with Prettier                                |
 | `npm run type-check`    | Type-check with `vue-tsc`                           |
-| `npm run analyze`       | Static analysis: type-check and Knip                |
+| `npm run analyze`       | Static analysis: type-check, Knip and jscpd         |
 | `npm run check`         | Lint, analyze, test with coverage and build (as CI) |
 
 ## Quality checks
@@ -63,13 +63,14 @@ npm run check
 ```
 
 [CI](.github/workflows/ci.yml) runs the same command on Node 22 and 24. The coverage report is
-written to `coverage/index.html`.
+written to `coverage/index.html`. ESLint fails on any function above cyclomatic complexity 6 or
+cognitive complexity 5, and jscpd fails on any duplicated block.
 
-Latest coverage (191 tests):
+Latest coverage (192 tests):
 
 | Statements | Branches | Functions | Lines |
 | ---------- | -------- | --------- | ----- |
-| 100%       | 98.67%   | 99.35%    | 100%  |
+| 100%       | 100%     | 100%      | 100%  |
 
 ## Production build
 

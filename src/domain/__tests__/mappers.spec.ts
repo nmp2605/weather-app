@@ -94,7 +94,7 @@ describe('mapDaily', () => {
   })
 
   it('uses the reading closest to noon and the highest chance of rain', () => {
-    const noon = FORECAST_START + 6 * 3 * 3600 // index 6 → 12:00 local on the 24th
+    const noon = FORECAST_START + 6 * 3 * 3600
     expect(days[1]).toMatchObject({ min: 14, max: 23, precipitationChance: 0.4, time: noon })
     expect(days[1]?.condition.isNight).toBe(false)
   })

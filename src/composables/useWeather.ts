@@ -7,6 +7,10 @@ import { getWeatherReport } from '@/services/weatherService'
 
 export type WeatherStatus = 'idle' | 'loading' | 'success' | 'error'
 
+interface LoadOptions {
+  silent?: boolean
+}
+
 export function useWeather() {
   const report = shallowRef<WeatherReport | null>(null)
   const status = ref<WeatherStatus>('idle')
@@ -16,37 +20,45 @@ export function useWeather() {
   let controller: AbortController | null = null
   let lastRequest: LocationRequest | null = null
 
-  /**
-   * Loads weather for a place. A newer call aborts the previous one, so a slow
-   * response can never overwrite a more recent choice. With `silent`, the current
-   * report stays on screen while the new one loads.
-   */
-  async function load(request: LocationRequest, { silent = false } = {}): Promise<void> {
+  function startRequest(request: LocationRequest): AbortController {
     controller?.abort()
-    const current = new AbortController()
-    controller = current
+    controller = new AbortController()
     lastRequest = request
+    return controller
+  }
 
-    const keepReport = silent && report.value !== null
+  function markPending(keepReport: boolean) {
     if (keepReport) isRefreshing.value = true
     else status.value = 'loading'
     error.value = null
+  }
+
+  function applyReport(result: WeatherReport) {
+    report.value = result
+    status.value = 'success'
+    saveLocation(result.location)
+  }
+
+  function applyFailure(caught: unknown, keepReport: boolean) {
+    if (isAbortError(caught)) return
+    error.value = toWeatherApiError(caught)
+    if (!keepReport) status.value = 'error'
+  }
+
+  async function load(request: LocationRequest, options: LoadOptions = {}): Promise<void> {
+    const current = startRequest(request)
+    const keepReport = options.silent === true && report.value !== null
+    markPending(keepReport)
 
     try {
-      const result = await getWeatherReport(request, current.signal)
-      report.value = result
-      status.value = 'success'
-      saveLocation(result.location)
+      applyReport(await getWeatherReport(request, current.signal))
     } catch (caught) {
-      if (isAbortError(caught)) return
-      error.value = toWeatherApiError(caught)
-      if (!keepReport) status.value = 'error'
+      applyFailure(caught, keepReport)
     } finally {
       if (controller === current) isRefreshing.value = false
     }
   }
 
-  /** Reloads the last place without hiding the data already shown. */
   function refresh(): Promise<void> {
     return lastRequest ? load(lastRequest, { silent: true }) : Promise.resolve()
   }

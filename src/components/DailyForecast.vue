@@ -10,11 +10,9 @@ import { formatWeekday } from '@/utils/time'
 const props = defineProps<{
   days: DailySummary[]
   timezoneOffset: number
-  /** City-local YYYY-MM-DD of today. */
   todayKey: string
 }>()
 
-// Every bar shares the period's scale, so days compare at a glance.
 const range = computed(() => {
   const min = Math.min(...props.days.map((day) => day.min))
   const max = Math.max(...props.days.map((day) => day.max))

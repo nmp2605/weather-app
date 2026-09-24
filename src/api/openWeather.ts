@@ -3,7 +3,6 @@ import { isAbortError, toWeatherApiError } from './errors'
 import type { OwmCurrentResponse, OwmForecastResponse, OwmGeocodingResult } from './types'
 import type { Coordinates } from '@/domain/types'
 
-/** Celsius and Brazilian Portuguese descriptions for every weather call. */
 const WEATHER_PARAMS = { units: 'metric', lang: 'pt_br' } as const
 
 async function get<T>(url: string, params: Record<string, unknown>, signal?: AbortSignal) {
@@ -11,7 +10,6 @@ async function get<T>(url: string, params: Record<string, unknown>, signal?: Abo
     const { data } = await http.get<T>(url, { params, signal })
     return data
   } catch (error) {
-    // Aborts are not failures: callers ignore them, so keep the original error.
     if (isAbortError(error)) throw error
     throw toWeatherApiError(error)
   }

@@ -8,16 +8,13 @@ import type {
 import { buildReport } from '@/domain/mappers'
 import type { Location, WeatherReport } from '@/domain/types'
 
-/** São Paulo is UTC−3. */
 export const SAO_PAULO_OFFSET = -3 * 3600
 
 const unix = (iso: string) => Math.floor(Date.parse(iso) / 1000)
 
-/** Wednesday, 23 Sep 2026, 15:12 in São Paulo. */
 export const OBSERVED_AT = unix('2026-09-23T18:12:00Z')
-export const SUNRISE = unix('2026-09-23T08:52:00Z') // 05:52 local
-export const SUNSET = unix('2026-09-23T21:01:00Z') // 18:01 local
-/** First forecast step: 18:00 local. */
+export const SUNRISE = unix('2026-09-23T08:52:00Z')
+export const SUNSET = unix('2026-09-23T21:01:00Z')
 export const FORECAST_START = unix('2026-09-23T21:00:00Z')
 const STEP = 3 * 3600
 
@@ -56,10 +53,6 @@ export function makeCurrent(overrides: Partial<OwmCurrentResponse> = {}): OwmCur
   }
 }
 
-/**
- * 40 steps of 3 h from 18:00 local on the 23rd. Temperature cycles 15–22 °C,
- * precipitation chance cycles 0–40 %, and every 8th step (from index 4) is rain.
- */
 function makeForecastItem(index: number): OwmForecastItem {
   const dt = FORECAST_START + index * STEP
   const temp = 15 + (index % 8)

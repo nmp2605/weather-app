@@ -39,7 +39,6 @@ export function mapCurrent(raw: OwmCurrentResponse): CurrentWeather {
   }
 }
 
-/** "Now" (current conditions) followed by the next 3-hour forecast steps. */
 export function mapHourly(
   current: OwmCurrentResponse,
   forecast: OwmForecastResponse,
@@ -64,7 +63,6 @@ export function mapHourly(
 
 type NonEmpty<T> = [T, ...T[]]
 
-/** Picks the reading closest to local noon to represent the day's weather. */
 function representative(items: NonEmpty<OwmForecastItem>, offset: number): OwmForecastItem {
   const distanceFromNoon = (item: OwmForecastItem) => Math.abs(localHour(item.dt, offset) - 12)
   let best = items[0]
@@ -74,50 +72,61 @@ function representative(items: NonEmpty<OwmForecastItem>, offset: number): OwmFo
   return best
 }
 
+function groupByLocalDate(items: OwmForecastItem[], offset: number) {
+  const groups = new Map<string, NonEmpty<OwmForecastItem>>()
+  for (const item of items) {
+    const key = localDateKey(item.dt, offset)
+    const group = groups.get(key)
+    if (group) group.push(item)
+    else groups.set(key, [item])
+  }
+  return groups
+}
+
+function summarizeDay(
+  [date, items]: [string, NonEmpty<OwmForecastItem>],
+  offset: number,
+  extraTemps: number[],
+): DailySummary {
+  const temps = items.flatMap((item) => [item.main.temp_min, item.main.temp_max])
+  const chosen = representative(items, offset)
+  return {
+    date,
+    time: chosen.dt,
+    min: Math.min(...temps, ...extraTemps),
+    max: Math.max(...temps, ...extraTemps),
+    condition: toCondition(chosen.weather[0]),
+    precipitationChance: Math.max(...items.map((item) => item.pop)),
+  }
+}
+
+function summarizeNow(
+  current: OwmCurrentResponse,
+  date: string,
+  forecast: OwmForecastResponse,
+): DailySummary {
+  return {
+    date,
+    time: current.dt,
+    min: Math.min(current.main.temp, current.main.temp_min),
+    max: Math.max(current.main.temp, current.main.temp_max),
+    condition: toCondition(current.weather[0]),
+    precipitationChance: forecast.list[0]?.pop ?? 0,
+  }
+}
+
 export function mapDaily(
   current: OwmCurrentResponse,
   forecast: OwmForecastResponse,
   days = DAILY_DAYS,
 ): DailySummary[] {
   const offset = forecast.city.timezone
-  const groups = new Map<string, NonEmpty<OwmForecastItem>>()
-
-  for (const item of forecast.list) {
-    const key = localDateKey(item.dt, offset)
-    const group = groups.get(key)
-    if (group) group.push(item)
-    else groups.set(key, [item])
-  }
-
   const today = localDateKey(current.dt, offset)
+  const summaries = [...groupByLocalDate(forecast.list, offset)].map((group) =>
+    summarizeDay(group, offset, group[0] === today ? [current.main.temp] : []),
+  )
 
-  const summaries = [...groups.entries()].map(([date, items]): DailySummary => {
-    const temps = items.flatMap((item) => [item.main.temp_min, item.main.temp_max])
-    // The forecast starts at the next 3-hour step, so today's range also includes "now".
-    if (date === today) temps.push(current.main.temp)
-
-    const chosen = representative(items, offset)
-    return {
-      date,
-      time: chosen.dt,
-      min: Math.min(...temps),
-      max: Math.max(...temps),
-      condition: toCondition(chosen.weather[0]),
-      precipitationChance: Math.max(...items.map((item) => item.pop)),
-    }
-  })
-
-  // Late at night the next 3-hour step is already tomorrow, so today comes from "now".
-  if (summaries[0]?.date !== today) {
-    summaries.unshift({
-      date: today,
-      time: current.dt,
-      min: Math.min(current.main.temp, current.main.temp_min),
-      max: Math.max(current.main.temp, current.main.temp_max),
-      condition: toCondition(current.weather[0]),
-      precipitationChance: forecast.list[0]?.pop ?? 0,
-    })
-  }
+  if (summaries[0]?.date !== today) summaries.unshift(summarizeNow(current, today, forecast))
 
   return summaries.slice(0, days)
 }

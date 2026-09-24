@@ -9,7 +9,6 @@ export default mergeConfig(
       environment: 'jsdom',
       root: fileURLToPath(new URL('./', import.meta.url)),
       setupFiles: ['src/__tests__/setup.ts'],
-      // Node 25+ ships its own `localStorage` global, which shadows jsdom's implementation.
       execArgv: ['--no-experimental-webstorage'],
       mockReset: true,
       restoreMocks: true,

@@ -1,7 +1,6 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  /** OpenWeatherMap API key (https://home.openweathermap.org/api_keys). */
   readonly VITE_OPENWEATHER_API_KEY?: string
 }
 

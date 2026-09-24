@@ -1,19 +1,21 @@
 import type { Condition, ConditionKind } from './types'
 import type { OwmCondition } from '@/api/types'
 
-/**
- * Maps an OpenWeatherMap condition code to the app's condition groups.
- * @see https://openweathermap.org/weather-conditions
- */
+const KIND_BY_CODE: Readonly<Record<number, ConditionKind>> = {
+  800: 'clear',
+  801: 'few-clouds',
+}
+
+const KIND_BY_GROUP: Readonly<Record<number, ConditionKind>> = {
+  2: 'thunderstorm',
+  3: 'drizzle',
+  5: 'rain',
+  6: 'snow',
+  7: 'mist',
+}
+
 export function toConditionKind(id: number): ConditionKind {
-  if (id >= 200 && id < 300) return 'thunderstorm'
-  if (id >= 300 && id < 400) return 'drizzle'
-  if (id >= 500 && id < 600) return 'rain'
-  if (id >= 600 && id < 700) return 'snow'
-  if (id >= 700 && id < 800) return 'mist'
-  if (id === 800) return 'clear'
-  if (id === 801) return 'few-clouds'
-  return 'clouds'
+  return KIND_BY_CODE[id] ?? KIND_BY_GROUP[Math.floor(id / 100)] ?? 'clouds'
 }
 
 export function toCondition(raw: OwmCondition | undefined): Condition {
@@ -21,7 +23,6 @@ export function toCondition(raw: OwmCondition | undefined): Condition {
   return {
     kind: toConditionKind(raw.id),
     description: raw.description,
-    // Icon codes end in "d" (day) or "n" (night), e.g. "01n".
     isNight: raw.icon.endsWith('n'),
   }
 }

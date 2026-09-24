@@ -7,7 +7,6 @@ import sonarjs from 'eslint-plugin-sonarjs'
 import skipFormatting from 'eslint-config-prettier/flat'
 import type { Linter } from 'eslint'
 
-// The plugin types its presets loosely (flat | legacy); `recommended` is a flat config.
 const sonarRecommended = sonarjs.configs?.recommended as Linter.Config
 
 export default defineConfigWithVueTs(
@@ -34,23 +33,16 @@ export default defineConfigWithVueTs(
       'vue/no-useless-v-bind': 'error',
       'vue/require-typed-ref': 'error',
       '@typescript-eslint/consistent-type-imports': 'error',
+      complexity: ['error', 6],
+      'sonarjs/cognitive-complexity': ['error', 5],
+      'max-depth': ['error', 3],
+      'max-params': ['error', 3],
     },
   },
 
   {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/**'],
-  },
-
-  {
-    name: 'app/tests',
-    files: ['src/**/__tests__/**'],
-    rules: {
-      // Test fixtures use fake coordinates and timestamps on purpose.
-      'sonarjs/no-hardcoded-ip': 'off',
-      'sonarjs/no-duplicate-string': 'off',
-      '@typescript-eslint/unbound-method': 'off',
-    },
   },
 
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),

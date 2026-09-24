@@ -7,7 +7,6 @@ import { findCities } from '@/services/weatherService'
 
 export type SearchStatus = 'idle' | 'loading' | 'success' | 'error'
 
-/** Debounced city autocomplete; stale requests are aborted as the user types. */
 export function useCitySearch(debounceMs = SEARCH_DEBOUNCE_MS) {
   const query = ref('')
   const results = shallowRef<Location[]>([])

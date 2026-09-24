@@ -9,7 +9,6 @@ export const http = axios.create({
   timeout: 10_000,
 })
 
-// The key is read per request so tests (and hot reloads) always see the current value.
 http.interceptors.request.use((config) => {
   config.params = { ...(config.params as Record<string, unknown>), appid: getApiKey() }
   return config

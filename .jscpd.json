@@ -1,0 +1,8 @@
+{
+  "path": ["src"],
+  "format": ["typescript", "vue"],
+  "minTokens": 40,
+  "threshold": 0,
+  "reporters": ["console"],
+  "silent": true
+}

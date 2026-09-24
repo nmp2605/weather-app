@@ -79,6 +79,17 @@ describe('CitySearch', () => {
     wrapper.unmount()
   })
 
+  it('keeps focus in the field when an option is pressed', async () => {
+    vi.mocked(findCities).mockResolvedValue([florianopolis])
+    const wrapper = mountSearch()
+    await search(wrapper, 'Flori')
+
+    const event = new MouseEvent('mousedown', { bubbles: true, cancelable: true })
+    wrapper.get('[role="listbox"]').element.dispatchEvent(event)
+    expect(event.defaultPrevented).toBe(true)
+    wrapper.unmount()
+  })
+
   it('selects with the mouse and tracks hover', async () => {
     vi.mocked(findCities).mockResolvedValue([florianopolis, floriano])
     const wrapper = mountSearch()

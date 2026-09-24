@@ -1,5 +1,3 @@
-/** Test doubles for browser APIs that jsdom does not implement. */
-
 type Success = (position: GeolocationPosition) => void
 type Failure = (error: GeolocationPositionError) => void
 

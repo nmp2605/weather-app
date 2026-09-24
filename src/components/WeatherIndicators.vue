@@ -18,7 +18,6 @@ const dew = computed(() =>
   formatTemperature(dewPoint(props.current.temperature, props.current.humidity)),
 )
 const wind = computed(() => windDirection(props.current.windDeg))
-// The API reports where the wind comes from; the arrow shows where it blows to.
 const windArrowRotation = computed(() => `rotate(${(props.current.windDeg + 180) % 360}deg)`)
 const visibility = computed(() =>
   props.current.visibilityKm === null ? '—' : formatNumber(props.current.visibilityKm, 1),

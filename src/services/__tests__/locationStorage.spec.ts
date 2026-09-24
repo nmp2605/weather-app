@@ -12,7 +12,7 @@ afterEach(() => {
 
 describe('location storage', () => {
   it('round-trips the last location', () => {
-    saveLocation(SAO_PAULO)
+    expect(saveLocation(SAO_PAULO)).toBe(true)
     expect(loadSavedLocation()).toEqual(SAO_PAULO)
   })
 
@@ -41,7 +41,7 @@ describe('location storage', () => {
     vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
       throw new DOMException('full', 'QuotaExceededError')
     })
-    expect(() => saveLocation(SAO_PAULO)).not.toThrow()
+    expect(saveLocation(SAO_PAULO)).toBe(false)
   })
 
   it('survives storage that cannot even be accessed', () => {
@@ -52,6 +52,6 @@ describe('location storage', () => {
       },
     })
     expect(loadSavedLocation()).toBeNull()
-    expect(() => saveLocation(SAO_PAULO)).not.toThrow()
+    expect(saveLocation(SAO_PAULO)).toBe(false)
   })
 })

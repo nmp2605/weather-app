@@ -17,7 +17,7 @@ import {
 import type { HourlyPoint } from '@/domain/types'
 
 const report = makeReport()
-const now = OBSERVED_AT + 8 * 60 // 15:20 local
+const now = OBSERVED_AT + 8 * 60
 
 describe('CurrentWeatherCard', () => {
   const baseProps = {
@@ -34,7 +34,6 @@ describe('CurrentWeatherCard', () => {
     const wrapper = mount(CurrentWeatherCard, { props: baseProps })
     const text = wrapper.text()
 
-    // The state is omitted when it repeats the city name.
     expect(wrapper.get('h2').text()).toBe('São Paulo, Brasil')
     expect(text).toContain('Hora local 15:20 · Atualizado às 15:12')
     expect(wrapper.get('[aria-label="23 graus Celsius"]').text()).toContain('23')
@@ -133,7 +132,6 @@ describe('HourlyForecast', () => {
     })
     const line = wrapper.get('[data-testid="hourly-line"]').attributes('d')
 
-    // 23.4 °C (max) sits on y=30, 15 °C (min) on the baseline y=130.
     expect(line).toMatch(/^M50\.0 30\.0 L150\.0 130\.0/)
     expect(wrapper.text()).toContain('23°')
   })
@@ -175,7 +173,6 @@ describe('DailyForecast', () => {
     expect(wrapper.get('h2').text()).toBe('Próximos 5 dias')
     expect(rows.map((row) => row.find('span').text())).toEqual(['Hoje', 'Qui', 'Sex', 'Sáb', 'Dom'])
     expect(rows[1]?.text()).toContain('40%')
-    // Period range is 14 °C → 23.4 °C; today spans all of it.
     expect(wrapper.get('[data-testid="range-bar"]').attributes('style')).toContain('left: 0%')
     expect(wrapper.get('[data-testid="range-bar"]').attributes('style')).toContain('width: 100%')
   })

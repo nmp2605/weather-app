@@ -40,8 +40,9 @@ describe('countryName', () => {
     expect(countryName('uy')).toBe('Uruguai')
   })
 
-  it('returns empty or invalid codes as they are', () => {
+  it('returns empty, unknown or invalid codes as they are', () => {
     expect(countryName('')).toBe('')
+    expect(countryName('XX')).toBe('XX')
     expect(countryName('not-a-code')).toBe('not-a-code')
   })
 })

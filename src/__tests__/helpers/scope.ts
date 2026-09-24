@@ -1,6 +1,5 @@
 import { effectScope } from 'vue'
 
-/** Runs a composable inside an effect scope so `onScopeDispose` can be exercised. */
 export function withScope<T>(factory: () => T): { result: T; stop: () => void } {
   const scope = effectScope()
   const result = scope.run(factory) as T
