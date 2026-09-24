@@ -162,7 +162,9 @@ describe('CitySearch', () => {
 
   it('asks for the browser location and reflects progress', async () => {
     const wrapper = mountSearch()
-    await wrapper.get('button[aria-label="Usar minha localização"]').trigger('click')
+    const button = wrapper.get('button[aria-label="Usar minha localização"]')
+    expect(button.classes()).toContain('enabled:cursor-pointer')
+    await button.trigger('click')
     expect(wrapper.emitted('locate')).toHaveLength(1)
 
     await wrapper.setProps({ locating: true })

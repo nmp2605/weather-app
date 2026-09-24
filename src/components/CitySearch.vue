@@ -121,7 +121,7 @@ function onFocusOut(event: FocusEvent) {
         :title="locating ? 'Obtendo sua localização' : 'Usar minha localização'"
         :disabled="locating"
         :aria-busy="locating"
-        class="state-layer focus-ring grid size-12 shrink-0 place-items-center rounded-full text-on-surface-variant"
+        class="state-layer focus-ring grid size-12 shrink-0 place-items-center rounded-full text-on-surface-variant enabled:cursor-pointer"
         @click="emit('locate')"
       >
         <ViewfinderCircleIcon

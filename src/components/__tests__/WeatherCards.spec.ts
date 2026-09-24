@@ -62,6 +62,7 @@ describe('CurrentWeatherCard', () => {
 
   it('emits refresh and reflects the refreshing state', async () => {
     const wrapper = mount(CurrentWeatherCard, { props: baseProps })
+    expect(wrapper.get('button').classes()).toContain('enabled:cursor-pointer')
     await wrapper.get('button').trigger('click')
     expect(wrapper.emitted('refresh')).toHaveLength(1)
 

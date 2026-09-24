@@ -57,7 +57,7 @@ const updatedAt = computed(() => formatClock(props.current.observedAt, props.tim
         :aria-label="refreshing ? 'Atualizando' : 'Atualizar'"
         :title="refreshing ? 'Atualizando' : 'Atualizar'"
         :disabled="refreshing"
-        class="state-layer focus-ring -mt-2 -mr-2 grid size-10 shrink-0 place-items-center rounded-full"
+        class="state-layer focus-ring -mt-2 -mr-2 grid size-10 shrink-0 place-items-center rounded-full enabled:cursor-pointer"
         @click="$emit('refresh')"
       >
         <ArrowPathIcon class="size-6" :class="{ 'animate-spin': refreshing }" aria-hidden="true" />
