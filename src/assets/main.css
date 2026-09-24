@@ -1,0 +1,183 @@
+@import 'tailwindcss';
+
+/*
+ * Material Design 3 color roles (seed #36618E).
+ * Raw values live in --md-* custom properties so the dark scheme can swap them,
+ * and Tailwind exposes them as semantic utilities (bg-primary-container, text-on-surface…).
+ */
+:root {
+  --md-primary: #36618e;
+  --md-on-primary: #ffffff;
+  --md-primary-container: #d1e4ff;
+  --md-on-primary-container: #001d36;
+  --md-secondary: #535f70;
+  --md-secondary-container: #d7e3f7;
+  --md-on-secondary-container: #101c2b;
+  --md-tertiary: #6b5778;
+  --md-tertiary-container: #f2daff;
+  --md-on-tertiary-container: #251431;
+  --md-error: #ba1a1a;
+  --md-on-error: #ffffff;
+  --md-error-container: #ffdad6;
+  --md-on-error-container: #410002;
+  --md-surface: #f8f9ff;
+  --md-on-surface: #191c20;
+  --md-on-surface-variant: #43474e;
+  --md-outline: #73777f;
+  --md-outline-variant: #c3c7cf;
+  --md-surface-container-lowest: #ffffff;
+  --md-surface-container-low: #f2f3fa;
+  --md-surface-container: #eceef4;
+  --md-surface-container-high: #e6e8ee;
+  --md-surface-container-highest: #e0e2e8;
+  --md-inverse-surface: #2e3135;
+  --md-inverse-on-surface: #eff0f7;
+  --md-inverse-primary: #a0cafd;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-primary: #a0cafd;
+    --md-on-primary: #003258;
+    --md-primary-container: #194975;
+    --md-on-primary-container: #d1e4ff;
+    --md-secondary: #bbc7db;
+    --md-secondary-container: #3b4858;
+    --md-on-secondary-container: #d7e3f7;
+    --md-tertiary: #d6bee4;
+    --md-tertiary-container: #523f5f;
+    --md-on-tertiary-container: #f2daff;
+    --md-error: #ffb4ab;
+    --md-on-error: #690005;
+    --md-error-container: #93000a;
+    --md-on-error-container: #ffdad6;
+    --md-surface: #111418;
+    --md-on-surface: #e1e2e8;
+    --md-on-surface-variant: #c3c7cf;
+    --md-outline: #8d9199;
+    --md-outline-variant: #43474e;
+    --md-surface-container-lowest: #0c0e13;
+    --md-surface-container-low: #191c20;
+    --md-surface-container: #1d2024;
+    --md-surface-container-high: #282a2f;
+    --md-surface-container-highest: #32353a;
+    --md-inverse-surface: #e1e2e8;
+    --md-inverse-on-surface: #2e3135;
+    --md-inverse-primary: #36618e;
+    color-scheme: dark;
+  }
+}
+
+@theme {
+  --font-sans: 'Roboto Flex Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: var(--md-primary);
+  --color-on-primary: var(--md-on-primary);
+  --color-primary-container: var(--md-primary-container);
+  --color-on-primary-container: var(--md-on-primary-container);
+  --color-secondary: var(--md-secondary);
+  --color-secondary-container: var(--md-secondary-container);
+  --color-on-secondary-container: var(--md-on-secondary-container);
+  --color-tertiary: var(--md-tertiary);
+  --color-tertiary-container: var(--md-tertiary-container);
+  --color-on-tertiary-container: var(--md-on-tertiary-container);
+  --color-error: var(--md-error);
+  --color-on-error: var(--md-on-error);
+  --color-error-container: var(--md-error-container);
+  --color-on-error-container: var(--md-on-error-container);
+  --color-surface: var(--md-surface);
+  --color-on-surface: var(--md-on-surface);
+  --color-on-surface-variant: var(--md-on-surface-variant);
+  --color-outline: var(--md-outline);
+  --color-outline-variant: var(--md-outline-variant);
+  --color-surface-lowest: var(--md-surface-container-lowest);
+  --color-surface-low: var(--md-surface-container-low);
+  --color-surface-container: var(--md-surface-container);
+  --color-surface-high: var(--md-surface-container-high);
+  --color-surface-highest: var(--md-surface-container-highest);
+  --color-inverse-surface: var(--md-inverse-surface);
+  --color-inverse-on-surface: var(--md-inverse-on-surface);
+  --color-inverse-primary: var(--md-inverse-primary);
+
+  /* M3 elevation levels */
+  --shadow-elevation-1: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 1px 3px 1px rgb(0 0 0 / 0.15);
+  --shadow-elevation-2: 0 1px 2px 0 rgb(0 0 0 / 0.3), 0 2px 6px 2px rgb(0 0 0 / 0.15);
+  --shadow-elevation-3: 0 4px 8px 3px rgb(0 0 0 / 0.15), 0 1px 3px 0 rgb(0 0 0 / 0.3);
+
+  /* M3 emphasized-decelerate entrance and indeterminate progress */
+  --animate-enter: enter 500ms cubic-bezier(0.05, 0.7, 0.1, 1) both;
+  --animate-indeterminate: indeterminate 1.6s cubic-bezier(0.2, 0, 0, 1) infinite;
+
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes indeterminate {
+    from {
+      transform: translateX(-100%) scaleX(0.4);
+    }
+    to {
+      transform: translateX(250%) scaleX(0.4);
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-surface font-sans text-on-surface antialiased;
+  }
+}
+
+@layer components {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* M3 state layer: overlay in the content color at 8% (hover) / 12% (focus, pressed). */
+  .state-layer {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .state-layer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity 150ms;
+  }
+
+  .state-layer:hover::after {
+    opacity: 0.08;
+  }
+
+  .state-layer:focus-visible::after,
+  .state-layer:active::after {
+    opacity: 0.12;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}

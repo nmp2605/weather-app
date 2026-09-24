@@ -1,0 +1,13 @@
+import { onScopeDispose, ref } from 'vue'
+
+import { CLOCK_TICK_MS } from '@/config/constants'
+
+/** Current Unix time in seconds, updated on an interval (drives local time and the sun arc). */
+export function useNow(tickMs = CLOCK_TICK_MS) {
+  const now = ref(Math.floor(Date.now() / 1000))
+  const timer = setInterval(() => {
+    now.value = Math.floor(Date.now() / 1000)
+  }, tickMs)
+  onScopeDispose(() => clearInterval(timer))
+  return now
+}
