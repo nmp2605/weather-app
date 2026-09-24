@@ -100,6 +100,33 @@ describe('mapDaily', () => {
   })
 })
 
+describe('mapDaily late at night', () => {
+  it('builds today from the current reading when no forecast step is left today', () => {
+    const lateNight = makeCurrent({
+      dt: OBSERVED_AT - 86_400,
+      main: { ...makeCurrent().main, temp: 19 },
+    })
+    const days = mapDaily(lateNight, makeForecast())
+
+    expect(days).toHaveLength(5)
+    expect(days[0]).toEqual({
+      date: '2026-09-22',
+      time: OBSERVED_AT - 86_400,
+      min: 19,
+      max: 25,
+      condition: { kind: 'clouds', description: 'nublado', isNight: false },
+      precipitationChance: 0,
+    })
+    expect(days[1]?.date).toBe('2026-09-23')
+  })
+
+  it('handles an empty forecast', () => {
+    expect(mapDaily(makeCurrent(), makeForecast(0))).toEqual([
+      expect.objectContaining({ date: '2026-09-23', min: 21, max: 25, precipitationChance: 0 }),
+    ])
+  })
+})
+
 describe('buildReport', () => {
   it('assembles the whole report', () => {
     const report = buildReport(SAO_PAULO, makeCurrent(), makeForecast())

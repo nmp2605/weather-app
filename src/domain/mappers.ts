@@ -91,7 +91,7 @@ export function mapDaily(
 
   const today = localDateKey(current.dt, offset)
 
-  return [...groups.entries()].slice(0, days).map(([date, items]) => {
+  const summaries = [...groups.entries()].map(([date, items]): DailySummary => {
     const temps = items.flatMap((item) => [item.main.temp_min, item.main.temp_max])
     // The forecast starts at the next 3-hour step, so today's range also includes "now".
     if (date === today) temps.push(current.main.temp)
@@ -106,6 +106,20 @@ export function mapDaily(
       precipitationChance: Math.max(...items.map((item) => item.pop)),
     }
   })
+
+  // Late at night the next 3-hour step is already tomorrow, so today comes from "now".
+  if (summaries[0]?.date !== today) {
+    summaries.unshift({
+      date: today,
+      time: current.dt,
+      min: Math.min(current.main.temp, current.main.temp_min),
+      max: Math.max(current.main.temp, current.main.temp_max),
+      condition: toCondition(current.weather[0]),
+      precipitationChance: forecast.list[0]?.pop ?? 0,
+    })
+  }
+
+  return summaries.slice(0, days)
 }
 
 export function buildReport(
