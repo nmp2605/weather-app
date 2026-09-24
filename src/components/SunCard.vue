@@ -25,7 +25,7 @@ const description = computed(() =>
 <template>
   <section
     aria-labelledby="sun-title"
-    class="flex animate-enter flex-col rounded-[28px] bg-tertiary-container p-5 text-on-tertiary-container [animation-delay:340ms] sm:p-6 lg:col-span-4"
+    class="flex card-hover animate-enter flex-col rounded-[28px] bg-tertiary-container p-5 text-on-tertiary-container [animation-delay:340ms] sm:p-6 lg:col-span-4"
   >
     <h2 id="sun-title" class="text-xl font-normal sm:text-[22px]">Sol</h2>
     <div class="flex flex-1 items-center justify-center py-4">

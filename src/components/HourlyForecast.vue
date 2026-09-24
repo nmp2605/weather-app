@@ -63,7 +63,7 @@ function chanceClass(point: HourlyPoint, index: number) {
 <template>
   <section
     aria-labelledby="hourly-title"
-    class="animate-enter rounded-[28px] bg-surface-low p-5 shadow-elevation-1 [animation-delay:260ms] sm:p-6 lg:col-span-12"
+    class="card-hover animate-enter rounded-[28px] bg-surface-low p-5 shadow-elevation-1 [animation-delay:260ms] sm:p-6 lg:col-span-12"
   >
     <div class="flex items-center justify-between gap-3">
       <h2 id="hourly-title" class="text-xl font-normal sm:text-[22px]">Próximas 24 horas</h2>

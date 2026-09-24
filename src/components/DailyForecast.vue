@@ -36,7 +36,7 @@ const rows = computed(() =>
 <template>
   <section
     aria-labelledby="daily-title"
-    class="animate-enter rounded-[28px] bg-surface-container p-5 [animation-delay:300ms] sm:p-6 lg:col-span-8"
+    class="card-hover animate-enter rounded-[28px] bg-surface-container p-5 [animation-delay:300ms] sm:p-6 lg:col-span-8"
   >
     <h2 id="daily-title" class="text-xl font-normal sm:text-[22px]">
       Próximos {{ days.length }} dias

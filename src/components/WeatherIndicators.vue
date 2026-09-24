@@ -31,7 +31,7 @@ const visibility = computed(() =>
     class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:col-span-4 lg:grid-cols-2 lg:gap-6"
   >
     <article
-      class="col-span-2 flex animate-enter items-center justify-between gap-4 rounded-[28px] bg-surface-container p-5 [animation-delay:60ms] md:row-span-2 lg:row-span-1"
+      class="col-span-2 flex card-hover animate-enter items-center justify-between gap-4 rounded-[28px] bg-surface-container p-5 [animation-delay:60ms] md:row-span-2 lg:row-span-1"
     >
       <div>
         <h3 class="flex items-center gap-2 text-sm font-medium text-on-surface-variant">
@@ -65,7 +65,9 @@ const visibility = computed(() =>
       </svg>
     </article>
 
-    <article class="animate-enter rounded-[28px] bg-surface-container p-5 [animation-delay:100ms]">
+    <article
+      class="card-hover animate-enter rounded-[28px] bg-surface-container p-5 [animation-delay:100ms]"
+    >
       <h3 class="flex items-center gap-2 text-sm font-medium text-on-surface-variant">
         <FlagIcon class="size-5 text-primary" aria-hidden="true" />Vento
       </h3>
@@ -89,7 +91,9 @@ const visibility = computed(() =>
       </div>
     </article>
 
-    <article class="animate-enter rounded-[28px] bg-surface-container p-5 [animation-delay:140ms]">
+    <article
+      class="card-hover animate-enter rounded-[28px] bg-surface-container p-5 [animation-delay:140ms]"
+    >
       <h3 class="flex items-center gap-2 text-sm font-medium text-on-surface-variant">
         <ScaleIcon class="size-5 text-primary" aria-hidden="true" />Pressão
       </h3>
@@ -97,7 +101,9 @@ const visibility = computed(() =>
       <p class="text-xs text-on-surface-variant">hPa</p>
     </article>
 
-    <article class="animate-enter rounded-[28px] bg-surface-container p-5 [animation-delay:180ms]">
+    <article
+      class="card-hover animate-enter rounded-[28px] bg-surface-container p-5 [animation-delay:180ms]"
+    >
       <h3 class="flex items-center gap-2 text-sm font-medium text-on-surface-variant">
         <EyeIcon class="size-5 text-primary" aria-hidden="true" />Visibilidade
       </h3>
@@ -105,7 +111,9 @@ const visibility = computed(() =>
       <p class="text-xs text-on-surface-variant">km</p>
     </article>
 
-    <article class="animate-enter rounded-[28px] bg-surface-container p-5 [animation-delay:220ms]">
+    <article
+      class="card-hover animate-enter rounded-[28px] bg-surface-container p-5 [animation-delay:220ms]"
+    >
       <h3 class="flex items-center gap-2 text-sm font-medium text-on-surface-variant">
         <CloudIcon class="size-5 text-primary" aria-hidden="true" />Nuvens
       </h3>

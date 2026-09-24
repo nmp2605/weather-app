@@ -229,3 +229,33 @@ describe('SunCard', () => {
     )
   })
 })
+
+describe('card hover', () => {
+  it('applies the hover elevation to every dashboard card', () => {
+    const cards = [
+      mount(CurrentWeatherCard, {
+        props: {
+          location: SAO_PAULO,
+          current: report.current,
+          timezoneOffset: SAO_PAULO_OFFSET,
+          now,
+          isCurrentLocation: false,
+          refreshing: false,
+        },
+      }).findAll('section'),
+      mount(WeatherIndicators, { props: { current: report.current } }).findAll('article'),
+      mount(HourlyForecast, {
+        props: { points: report.hourly, timezoneOffset: SAO_PAULO_OFFSET },
+      }).findAll('section'),
+      mount(DailyForecast, {
+        props: { days: report.daily, timezoneOffset: SAO_PAULO_OFFSET, todayKey: '' },
+      }).findAll('section'),
+      mount(SunCard, {
+        props: { sunrise: SUNRISE, sunset: SUNSET, now, timezoneOffset: SAO_PAULO_OFFSET },
+      }).findAll('section'),
+    ].flat()
+
+    expect(cards).toHaveLength(9)
+    for (const card of cards) expect(card.classes()).toContain('card-hover')
+  })
+})

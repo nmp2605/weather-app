@@ -65,7 +65,7 @@ npm run check
 [CI](.github/workflows/ci.yml) runs the same command on Node 22 and 24. The coverage report is
 written to `coverage/index.html`.
 
-Latest coverage (190 tests):
+Latest coverage (191 tests):
 
 | Statements | Branches | Functions | Lines |
 | ---------- | -------- | --------- | ----- |

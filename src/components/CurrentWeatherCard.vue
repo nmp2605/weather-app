@@ -40,7 +40,7 @@ const updatedAt = computed(() => formatClock(props.current.observedAt, props.tim
 <template>
   <section
     aria-labelledby="current-title"
-    class="relative animate-enter overflow-hidden rounded-[28px] bg-primary-container p-5 text-on-primary-container sm:p-8 lg:col-span-8"
+    class="relative card-hover animate-enter overflow-hidden rounded-[28px] bg-primary-container p-5 text-on-primary-container sm:p-8 lg:col-span-8"
   >
     <div class="flex items-start justify-between gap-4">
       <div class="min-w-0">
