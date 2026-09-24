@@ -40,6 +40,7 @@ describe('CitySearch', () => {
     expect(input.attributes('aria-expanded')).toBe('false')
     expect(wrapper.get(`#${input.attributes('aria-controls')}`).attributes('role')).toBe('listbox')
     expect(wrapper.get('label').attributes('for')).toBe(input.attributes('id'))
+    expect(input.classes()).toContain('cursor-text')
     wrapper.unmount()
   })
 

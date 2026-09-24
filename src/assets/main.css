@@ -152,6 +152,12 @@
   body {
     @apply bg-surface font-sans text-on-surface antialiased;
   }
+
+  *,
+  *::before,
+  *::after {
+    cursor: default;
+  }
 }
 
 @layer components {

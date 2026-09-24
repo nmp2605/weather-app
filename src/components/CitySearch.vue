@@ -98,7 +98,7 @@ function onFocusOut(event: FocusEvent) {
         :aria-expanded="showPanel"
         :aria-controls="listboxId"
         :aria-activedescendant="activeDescendant"
-        class="h-full min-w-0 flex-1 bg-transparent px-2 text-base text-on-surface placeholder:text-on-surface-variant focus:outline-none"
+        class="h-full min-w-0 flex-1 cursor-text bg-transparent px-2 text-base text-on-surface placeholder:text-on-surface-variant focus:outline-none"
         @focus="isOpen = true"
         @input="isOpen = true"
         @keydown.down.prevent="move(1)"
@@ -121,7 +121,7 @@ function onFocusOut(event: FocusEvent) {
         :title="locating ? 'Obtendo sua localização' : 'Usar minha localização'"
         :disabled="locating"
         :aria-busy="locating"
-        class="state-layer focus-ring grid size-12 shrink-0 place-items-center rounded-full text-on-surface-variant disabled:cursor-progress"
+        class="state-layer focus-ring grid size-12 shrink-0 place-items-center rounded-full text-on-surface-variant"
         @click="emit('locate')"
       >
         <ViewfinderCircleIcon
@@ -143,7 +143,7 @@ function onFocusOut(event: FocusEvent) {
           :key="`${location.lat},${location.lon}`"
           role="option"
           :aria-selected="index === activeIndex"
-          class="state-layer flex cursor-pointer items-center gap-4 px-4 py-2 text-on-surface"
+          class="state-layer flex items-center gap-4 px-4 py-2 text-on-surface"
           :class="{ 'bg-secondary-container/60': index === activeIndex }"
           @click="choose(location)"
           @mousemove="activeIndex = index"
