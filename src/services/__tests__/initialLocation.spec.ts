@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import * as geolocation from '../geolocation'
 import { resolveInitialLocation } from '../initialLocation'
 import * as storage from '../locationStorage'
-import { SAO_PAULO, makeGeo } from '@/__tests__/fixtures/owm'
+import { makeGeo } from '@/__tests__/fixtures/owm'
 import { DEFAULT_LOCATION } from '@/config/constants'
 import { MESSAGES } from '@/config/messages'
 import { toLocation } from '@/domain/mappers'
@@ -63,6 +63,13 @@ describe('resolveInitialLocation', () => {
     },
   )
 
+  it('defaults to Goiânia', () => {
+    expect(DEFAULT_LOCATION).toMatchObject({ name: 'Goiânia', state: 'Goiás', country: 'BR' })
+    expect(MESSAGES.locationFallback).toBe(
+      'Não foi possível usar sua localização. Mostrando Goiânia.',
+    )
+  })
+
   it('shows the default city with a notice when the prompt fails', async () => {
     vi.mocked(geolocation.getPermissionState).mockResolvedValue('prompt')
     vi.mocked(geolocation.getCurrentPosition).mockRejectedValue(
@@ -70,7 +77,7 @@ describe('resolveInitialLocation', () => {
     )
 
     await expect(resolveInitialLocation()).resolves.toEqual({
-      request: { coords: DEFAULT_LOCATION, location: SAO_PAULO },
+      request: { coords: DEFAULT_LOCATION, location: { ...DEFAULT_LOCATION } },
       source: 'default',
       notice: MESSAGES.locationFallback,
     })

@@ -2,11 +2,11 @@ import type { Location } from '@/domain/types'
 
 /** Shown when the browser location is unavailable and nothing was searched before. */
 export const DEFAULT_LOCATION: Readonly<Location> = Object.freeze({
-  name: 'São Paulo',
-  state: 'São Paulo',
+  name: 'Goiânia',
+  state: 'Goiás',
   country: 'BR',
-  lat: -23.5505,
-  lon: -46.6333,
+  lat: -16.6869,
+  lon: -49.2648,
 })
 
 export const GEOLOCATION_TIMEOUT_MS = 8_000
