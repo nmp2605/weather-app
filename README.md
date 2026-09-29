@@ -1,111 +1,117 @@
 # Boletim do Tempo
 
-Weather monitoring dashboard built with Vue 3, Tailwind CSS 4 and Axios, using the
-[OpenWeatherMap](https://openweathermap.org/) API. The interface is in Brazilian Portuguese.
+Painel de monitoramento do tempo feito com Vue 3, Tailwind CSS 4 e Axios, usando a API da
+[OpenWeatherMap](https://openweathermap.org/).
 
-## Requirements
+![Demonstração do Boletim do Tempo](docs/demo.gif)
 
-- Node.js `^22.18.0` or `>=24.12.0` (`.nvmrc` pins 24)
-- A free OpenWeatherMap account
+## Requisitos
+
+- Node.js `^22.18.0` ou `>=24.12.0` (o `.nvmrc` fixa a versão 24)
+- Uma conta gratuita na OpenWeatherMap
+
+Com o [nvm v0.40.8](https://github.com/nvm-sh/nvm/blob/v0.40.8/README.md#installing-and-updating)
+instalado, use a versão do `.nvmrc`
+([documentação do `.nvmrc`](https://github.com/nvm-sh/nvm/blob/v0.40.8/README.md#nvmrc)):
 
 ```bash
 nvm install
 nvm use
 ```
 
-## Setup
+## Configuração
 
 ```bash
 npm ci
 cp .env.example .env
 ```
 
-1. Create an account at <https://home.openweathermap.org/users/sign_up>.
-2. Copy a key from <https://home.openweathermap.org/api_keys> (new keys can take a couple of hours
-   to activate).
-3. Add it to `.env`:
+1. Crie uma conta em <https://home.openweathermap.org/users/sign_up>.
+2. Copie uma chave em <https://home.openweathermap.org/api_keys> (chaves novas podem levar algumas
+   horas para ativar).
+3. Adicione-a ao `.env`:
 
    ```dotenv
-   VITE_OPENWEATHER_API_KEY=your_key_here
+   VITE_OPENWEATHER_API_KEY=sua_chave_aqui
    ```
 
-4. Start the dev server and open <http://localhost:5173>:
+4. Inicie o servidor de desenvolvimento e abra <http://localhost:5173>:
 
    ```bash
    npm run dev
    ```
 
 > [!WARNING]
-> `VITE_` variables are embedded in the bundle, so the key is visible to anyone using the deployed
-> site. For a public deployment, proxy the API through a backend that adds the key.
+> Variáveis `VITE_` são embutidas no bundle, então a chave fica visível para qualquer pessoa que use
+> o site publicado. Em uma publicação pública, faça proxy da API por um backend que adicione a chave.
 
 ## Scripts
 
-| Command                 | Description                                         |
-| ----------------------- | --------------------------------------------------- |
-| `npm run dev`           | Development server                                  |
-| `npm run build`         | Type-check and build to `dist/`                     |
-| `npm run preview`       | Serve the production build                          |
-| `npm test`              | Run the tests                                       |
-| `npm run test:watch`    | Run the tests in watch mode                         |
-| `npm run test:coverage` | Run the tests with coverage (fails below 90%)       |
-| `npm run lint`          | Oxlint, ESLint (with SonarJS) and Prettier check    |
-| `npm run lint:fix`      | Fix lint and formatting issues                      |
-| `npm run format`        | Format with Prettier                                |
-| `npm run type-check`    | Type-check with `vue-tsc`                           |
-| `npm run analyze`       | Static analysis: type-check, Knip and jscpd         |
-| `npm run check`         | Lint, analyze, test with coverage and build (as CI) |
+| Comando                 | Descrição                                                 |
+| ----------------------- | --------------------------------------------------------- |
+| `npm run dev`           | Servidor de desenvolvimento                               |
+| `npm run build`         | Verifica tipos e gera o build em `dist/`                  |
+| `npm run preview`       | Serve o build de produção                                 |
+| `npm test`              | Executa os testes                                         |
+| `npm run test:watch`    | Executa os testes em modo watch                           |
+| `npm run test:coverage` | Executa os testes com cobertura (falha abaixo de 90%)     |
+| `npm run lint`          | Oxlint, ESLint (com SonarJS) e verificação do Prettier    |
+| `npm run lint:fix`      | Corrige problemas de lint e formatação                    |
+| `npm run format`        | Formata com o Prettier                                    |
+| `npm run type-check`    | Verifica tipos com `vue-tsc`                              |
+| `npm run analyze`       | Análise estática: verificação de tipos, Knip e jscpd      |
+| `npm run check`         | Lint, análise, testes com cobertura e build (igual ao CI) |
 
-## Quality checks
+## Verificações de qualidade
 
 ```bash
 npm run check
 ```
 
-[CI](.github/workflows/ci.yml) runs the same command on Node 22 and 24. The coverage report is
-written to `coverage/index.html`. ESLint fails on any function above cyclomatic complexity 6 or
-cognitive complexity 5, and jscpd fails on any duplicated block.
+O [CI](.github/workflows/ci.yml) executa o mesmo comando no Node 22 e 24. O relatório de cobertura é
+gerado em `coverage/index.html`. O ESLint falha em qualquer função com complexidade ciclomática
+acima de 6 ou complexidade cognitiva acima de 5, e o jscpd falha em qualquer bloco duplicado.
 
-Latest coverage (192 tests):
+Cobertura mais recente (192 testes):
 
-| Statements | Branches | Functions | Lines |
-| ---------- | -------- | --------- | ----- |
-| 100%       | 100%     | 100%      | 100%  |
+| Instruções | Ramos | Funções | Linhas |
+| ---------- | ----- | ------- | ------ |
+| 100%       | 100%  | 100%    | 100%   |
 
-## Production build
+## Build de produção
 
 ```bash
 npm run build
 ```
 
-Deploy `dist/` to any static host. Set `VITE_OPENWEATHER_API_KEY` in the build environment and
-serve over HTTPS (required for browser geolocation).
+Publique a pasta `dist/` em qualquer host estático. Defina `VITE_OPENWEATHER_API_KEY` no ambiente de
+build e sirva via HTTPS (necessário para a geolocalização do navegador).
 
-## Project structure
+## Estrutura do projeto
 
 ```text
 src/
-├── api/          # OpenWeatherMap client and endpoints
-├── components/   # Vue components
-├── composables/  # Reactive state
-├── config/       # Environment, constants and UI messages
-├── domain/       # Types and API-to-view mappers
-├── services/     # Weather, geolocation and saved location
-├── utils/        # Formatting and time helpers
-├── assets/       # Tailwind entry and design tokens
+├── api/          # Cliente e endpoints da OpenWeatherMap
+├── components/   # Componentes Vue
+├── composables/  # Estado reativo
+├── config/       # Ambiente, constantes e mensagens da interface
+├── domain/       # Tipos e mapeadores da API para a visualização
+├── services/     # Tempo, geolocalização e local salvo
+├── utils/        # Formatação e utilitários de horário
+├── assets/       # Entrada do Tailwind e design tokens
 ├── App.vue
 └── main.ts
 ```
 
-Tests live in `__tests__/` folders next to the code. `prototype/index.html` is the static HTML
-prototype.
+Os testes ficam em pastas `__tests__/` ao lado do código. `prototype/index.html` é o protótipo
+estático em HTML.
 
-## Troubleshooting
+## Solução de problemas
 
-| Symptom                                      | Fix                                                      |
-| -------------------------------------------- | -------------------------------------------------------- |
-| "Configure a chave da OpenWeatherMap" screen | Add the key to `.env` and restart the dev server.        |
-| "Chave de API inválida"                      | Check the key or wait for it to activate.                |
-| "Limite de requisições atingido"             | Wait a minute; the free plan allows 60 calls per minute. |
-| Location is never used                       | Allow location access and serve over HTTPS.              |
-| `SyntaxError ... styleText` on start         | Node is too old; run `nvm use`.                          |
+| Sintoma                                    | Solução                                                              |
+| ------------------------------------------ | -------------------------------------------------------------------- |
+| Tela "Configure a chave da OpenWeatherMap" | Adicione a chave ao `.env` e reinicie o servidor de desenvolvimento. |
+| "Chave de API inválida"                    | Confira a chave ou aguarde a ativação.                               |
+| "Limite de requisições atingido"           | Aguarde um minuto; o plano gratuito permite 60 chamadas por minuto.  |
+| A localização nunca é usada                | Permita o acesso à localização e sirva via HTTPS.                    |
+| `SyntaxError ... styleText` ao iniciar     | O Node está desatualizado; execute `nvm use`.                        |
