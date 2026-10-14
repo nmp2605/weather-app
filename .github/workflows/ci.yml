@@ -14,18 +14,14 @@ concurrency:
 
 jobs:
   check:
-    name: Lint, analyze, test and build (Node ${{ matrix.node }})
+    name: Lint, analyze, test and build
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        node: [22, 24]
     steps:
       - uses: actions/checkout@v5
 
       - uses: actions/setup-node@v5
         with:
-          node-version: ${{ matrix.node }}
+          node-version-file: .nvmrc
           cache: npm
 
       - run: npm ci
@@ -33,7 +29,7 @@ jobs:
       - run: npm run check
 
       - name: Upload coverage report
-        if: always() && matrix.node == 24
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: coverage

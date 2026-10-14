@@ -9,7 +9,7 @@ Painel de monitoramento do tempo feito com Vue 3, Tailwind CSS 4 e Axios, usando
 
 ## Requisitos
 
-- Node.js `^22.18.0` ou `>=24.12.0` (o `.nvmrc` fixa a versão 24)
+- Node.js `>=24.12.0` (o `.nvmrc` fixa a versão 24)
 - Uma conta gratuita na OpenWeatherMap
 
 Com o [nvm v0.40.8](https://github.com/nvm-sh/nvm/blob/v0.40.8/README.md#installing-and-updating)
@@ -70,7 +70,7 @@ cp .env.example .env
 npm run check
 ```
 
-O [CI](.github/workflows/ci.yml) executa o mesmo comando no Node 22 e 24. O relatório de cobertura é
+O [CI](.github/workflows/ci.yml) executa o mesmo comando no Node 24. O relatório de cobertura é
 gerado em `coverage/index.html`. O ESLint falha em qualquer função com complexidade ciclomática
 acima de 6 ou complexidade cognitiva acima de 5, e o jscpd falha em qualquer bloco duplicado.
 
