@@ -1,5 +1,7 @@
 # Boletim do Tempo
 
+[![CI](https://github.com/nmp2605/weather-app/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/nmp2605/weather-app/actions/workflows/ci.yml)
+
 Painel de monitoramento do tempo feito com Vue 3, Tailwind CSS 4 e Axios, usando a API da
 [OpenWeatherMap](https://openweathermap.org/).
 
